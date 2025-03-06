@@ -23,6 +23,39 @@ namespace habilitations2024.dal
         }
 
         /// <summary>
+        /// Construit une requête pour chercher un développeur correspondant aux critères (meme nom, prenom, pwd et de profil admin) pour se connecter
+        /// </summary>
+        /// <param name="admin">Recoit en paramètre un objet de type admin</param>
+        /// <returns>Vrai si l'utilisateur a le profil admin</returns>
+        public Boolean ControleAuthentification(Admin admin)
+        {
+            if(access.Manager != null)
+            {
+                string req = "SELECT * FROM developpeur d JOIN profil p ON d.idprofil=p.idprofil ";
+                req += "WHERE d.nom=@nom AND d.prenom=@prenom AND d.pwd AND p.nom='admin';";
+                Dictionary<string,object> parameters = new Dictionary<string,object>();
+                parameters.Add("@nom", admin.Nom);
+                parameters.Add("@prenom", admin.Prenom);
+                parameters.Add("@pwd", admin.Pwd);
+
+                try
+                {
+                    List<Object[]> records = access.Manager.ReqSelect(req, parameters);
+                    if(records != null)
+                    {
+                        return(records.Count > 0);
+                    }
+                }
+                catch(Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    Environment.Exit(0);
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
         /// Récupère et retourne les développeurs
         /// </summary>
         /// <returns></returns>

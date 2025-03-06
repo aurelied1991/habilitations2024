@@ -18,7 +18,7 @@ namespace habilitations2024
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             MessageBox.Show("L'application va démarrer.");
-            Application.Run(new FrmHabilitations());
+            Application.Run(new view.FrmAuthentification());
         }
     }
 }
