@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.gboLesDeveloppeurs = new System.Windows.Forms.GroupBox();
+            this.CboSelectionProfil = new System.Windows.Forms.ComboBox();
             this.btnChangerPwd = new System.Windows.Forms.Button();
             this.btnSupprimer = new System.Windows.Forms.Button();
             this.btnModifier = new System.Windows.Forms.Button();
@@ -53,6 +54,7 @@
             this.txtPwd = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.gboLesDeveloppeurs.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvLesDeveloppeurs)).BeginInit();
             this.gboAjoutDeveloppeur.SuspendLayout();
@@ -61,6 +63,8 @@
             // 
             // gboLesDeveloppeurs
             // 
+            this.gboLesDeveloppeurs.Controls.Add(this.label8);
+            this.gboLesDeveloppeurs.Controls.Add(this.CboSelectionProfil);
             this.gboLesDeveloppeurs.Controls.Add(this.btnChangerPwd);
             this.gboLesDeveloppeurs.Controls.Add(this.btnSupprimer);
             this.gboLesDeveloppeurs.Controls.Add(this.btnModifier);
@@ -72,11 +76,20 @@
             this.gboLesDeveloppeurs.TabStop = false;
             this.gboLesDeveloppeurs.Text = "Les développeurs";
             // 
+            // CboSelectionProfil
+            // 
+            this.CboSelectionProfil.FormattingEnabled = true;
+            this.CboSelectionProfil.Location = new System.Drawing.Point(488, 228);
+            this.CboSelectionProfil.Name = "CboSelectionProfil";
+            this.CboSelectionProfil.Size = new System.Drawing.Size(121, 24);
+            this.CboSelectionProfil.TabIndex = 3;
+            this.CboSelectionProfil.SelectedIndexChanged += new System.EventHandler(this.CboSelectionProfil_SelectedIndexChanged);
+            // 
             // btnChangerPwd
             // 
-            this.btnChangerPwd.Location = new System.Drawing.Point(293, 228);
+            this.btnChangerPwd.Location = new System.Drawing.Point(293, 225);
             this.btnChangerPwd.Name = "btnChangerPwd";
-            this.btnChangerPwd.Size = new System.Drawing.Size(95, 23);
+            this.btnChangerPwd.Size = new System.Drawing.Size(95, 26);
             this.btnChangerPwd.TabIndex = 3;
             this.btnChangerPwd.Text = "Changer pwd";
             this.btnChangerPwd.UseVisualStyleBackColor = true;
@@ -84,9 +97,9 @@
             // 
             // btnSupprimer
             // 
-            this.btnSupprimer.Location = new System.Drawing.Point(151, 228);
+            this.btnSupprimer.Location = new System.Drawing.Point(151, 225);
             this.btnSupprimer.Name = "btnSupprimer";
-            this.btnSupprimer.Size = new System.Drawing.Size(95, 23);
+            this.btnSupprimer.Size = new System.Drawing.Size(95, 26);
             this.btnSupprimer.TabIndex = 2;
             this.btnSupprimer.Text = "Supprimer";
             this.btnSupprimer.UseVisualStyleBackColor = true;
@@ -94,9 +107,9 @@
             // 
             // btnModifier
             // 
-            this.btnModifier.Location = new System.Drawing.Point(10, 228);
+            this.btnModifier.Location = new System.Drawing.Point(10, 225);
             this.btnModifier.Name = "btnModifier";
-            this.btnModifier.Size = new System.Drawing.Size(98, 23);
+            this.btnModifier.Size = new System.Drawing.Size(98, 26);
             this.btnModifier.TabIndex = 1;
             this.btnModifier.Text = "Modifier";
             this.btnModifier.UseVisualStyleBackColor = true;
@@ -307,6 +320,15 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Pwd";
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(427, 235);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(43, 16);
+            this.label8.TabIndex = 4;
+            this.label8.Text = "Profil :";
+            // 
             // FrmHabilitations
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -318,6 +340,7 @@
             this.Name = "FrmHabilitations";
             this.Text = "Habilitations2024";
             this.gboLesDeveloppeurs.ResumeLayout(false);
+            this.gboLesDeveloppeurs.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvLesDeveloppeurs)).EndInit();
             this.gboAjoutDeveloppeur.ResumeLayout(false);
             this.gboAjoutDeveloppeur.PerformLayout();
@@ -354,6 +377,8 @@
         private System.Windows.Forms.Button btnChangerPwd;
         private System.Windows.Forms.Button btnSupprimer;
         private System.Windows.Forms.Button btnModifier;
+        private System.Windows.Forms.ComboBox CboSelectionProfil;
+        private System.Windows.Forms.Label label8;
     }
 }
 

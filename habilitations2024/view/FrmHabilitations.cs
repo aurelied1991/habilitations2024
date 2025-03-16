@@ -35,9 +35,17 @@ namespace Habilitations2024.view
         private BindingSource bdgProfils = new BindingSource();
 
         /// <summary>
+        /// Objet pour gérer la liste profils dans le cas du filtre par profil
+        /// </summary>
+        private BindingSource bdgProfilsFiltre = new BindingSource();
+
+        /// <summary>
         /// Booléen pour savoir si une modification est demandée
         /// </summary>
         private Boolean demandeModifDeveloppeur = false;
+
+
+        private int idProfilSelectionne;
 
         /// <summary>
         /// COnstruction des composants graphiques et initialisation
@@ -66,7 +74,7 @@ namespace Habilitations2024.view
         private void RemplirListeDeveloppeurs()
         {
             MessageBox.Show("Méthode appelée");
-            List<Developpeur> lesDeveloppeurs = controller.GetLesDeveloppeurs();
+            List<Developpeur> lesDeveloppeurs = controller.GetLesDeveloppeurs(idProfilSelectionne);
             MessageBox.Show("Nombre de dev recup : " + lesDeveloppeurs.Count);
             bdgDeveloppeurs.DataSource = lesDeveloppeurs;
             dgvLesDeveloppeurs.DataSource = bdgDeveloppeurs;
@@ -76,13 +84,21 @@ namespace Habilitations2024.view
         }
 
         /// <summary>
-        /// Permet d'afficher les profils dans la liste des profils à sélectionner
+        /// Permet d'afficher les différents profils
         /// </summary>
         private void RemplirListeProfils()
         {
+            //Appel de la méthode GetLesProfils pour obtenir la liste des profils
             List<Profil> lesProfils = controller.GetLesProfils();
+            //Lie la liste des profils à la source de données bdgProfils puis à bdgProfilsFiltre pour pouvoir les filtrer par la suite
             bdgProfils.DataSource = lesProfils;
+            bdgProfilsFiltre.DataSource = lesProfils;
+            //Lie bdgProfils à cboProfil  afin que la combobox "CboProfil" affiche la liste des profils dans la combobox située dans le groupebox "Modifier un développeur"
             cboProfil.DataSource = bdgProfils;
+            //Lie bdgProfilsFiltre à CboSelectionProfil pour afficher la liste des profils dans la combobox située dans le groupebox "Les développeurs"
+            CboSelectionProfil.DataSource = bdgProfilsFiltre;
+            // Sélectionner la ligne vide par défaut
+            CboSelectionProfil.SelectedIndex = 0;
         }
 
         /// <summary>
@@ -259,6 +275,34 @@ namespace Habilitations2024.view
                 txtTel.Text = "";
                 txtMail.Text = "";
             }
+        }
+
+        /// <summary>
+        /// Evenement déclenché lorsque l'utilisateur sélectionne un profil dans la combobox CboSelectionProfil
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CboSelectionProfil_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //Récupère l'objet Profil sélectionné dans la comboBox
+            Profil profilSelectionne = (Profil)CboSelectionProfil.SelectedItem;
+
+            //Vérifie si un profil a bien été sélectionné
+            if(profilSelectionne != null )
+            {
+                //On récupère l'identifiant du profil sélectionné
+                idProfilSelectionne = profilSelectionne.Idprofil;
+            }
+            else
+            {
+                //Si aucun profil n'est sélectionné, on initialise l'identifiant du profil à 0
+                idProfilSelectionne = 0;
+            }
+
+            //Récupère la liste des développeurs correspondant au profil sélectionné
+            List<Developpeur> lesDeveloppeurs = controller.GetLesDeveloppeurs(idProfilSelectionne);
+            //Mise à jour du bdgDeveloppeur avec la nouvelle liste de développeurs
+            bdgDeveloppeurs.DataSource = lesDeveloppeurs;
         }
     }
 }

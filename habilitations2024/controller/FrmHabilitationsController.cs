@@ -22,10 +22,10 @@ namespace habilitations2024.controller
             profilAccess = new ProfilAccess();
         }
 
-        //Récupère et retourne la liste des développeurs
-        public List<Developpeur> GetLesDeveloppeurs()
+        //Récupère et retourne la liste des développeurs en fonction d'un profil sélectionné, ce qui permet de filtrer les développeurs selon leur profil
+        public List<Developpeur> GetLesDeveloppeurs(int idProfilSelectionne)
         {
-            return developpeurAccess.GetLesDeveloppeurs();
+            return developpeurAccess.GetLesDeveloppeurs(idProfilSelectionne);
         }
 
         //Récupère et retourne la liste des des profils

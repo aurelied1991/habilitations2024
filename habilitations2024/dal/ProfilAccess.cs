@@ -28,12 +28,14 @@ namespace habilitations2024.dal
         {
             //Création en local d'une liste d'objets de type Profil pour la remplir à partir de la bdd et la retourner
             List<Profil> lesProfils = new List<Profil> ();
-            //
+            //Ajout d'une ligne vide qui sera sélectionnée par défaut au démarrage de l'appli 
+            lesProfils.Add(new Profil(0, ""));
+           
             if (access.Manager != null)
             {
                 //enregistrement de la requête paramétrée
                 string req = "SELECT * FROM profil ORDER BY nom;";
-                //try/catch (de type exception) car une demande d'exécution d'une requête peut provoquer une erreur
+                //try catch (de type exception) car une demande d'exécution d'une requête peut provoquer une erreur
                 try
                 {
                     //Demande à BddManager (via l'objet Manager de la classe Access) d'exécuter une requête qui récupère tous les profils

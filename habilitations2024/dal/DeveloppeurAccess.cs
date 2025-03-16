@@ -59,35 +59,63 @@ namespace habilitations2024.dal
         /// Récupère et retourne les développeurs
         /// </summary>
         /// <returns></returns>
-        public List<Developpeur> GetLesDeveloppeurs()
+        public List<Developpeur> GetLesDeveloppeurs(int idProfilSelectionne)
         {
-            //Creation en local d'une liste d'objets de type developpeur pour la remplir à partir de la bdd
+            //Initialisation d'une liste d'objets vide, de type developpeur, pour la remplir par la suite à partir de requête sur la bdd
             List<Developpeur> lesDeveloppeurs = new List<Developpeur>();
+            //Vérification que la connexion à la base de données est bien établie
             if (access.Manager != null)
             {
-                //enregistrement de la requête paramétrée
+                //Construction de la requête SQL
                 string req = "SELECT d.iddeveloppeur AS iddeveloppeur, d.nom AS nom, d.prenom AS prenom, d.tel AS tel, d.mail AS mail, p.idprofil AS idprofil, p.nom AS profil ";
                 req += "FROM developpeur d JOIN profil p ON (d.idprofil = p.idprofil) ";
+                
+                //Si un profil est sélectionné, on ajoute une condition pour récupérer seulement les développeurs correspondant au profil
+                //Si aucun profil n'est sélectionné, tous les développeurs seront affichés
+                if (idProfilSelectionne!=0)
+                {
+                    req += "WHERE d.idprofil = @profilId ";
+                }
+
+                //Trié par nom puis par prénom
                 req += "ORDER BY nom, prenom;";
+
+                //Création d'un dictionnaire pour stocker les paramètres de la requête SQL
+                Dictionary<string, object> typeProfil = new Dictionary<string, object>();
+                //Si un profil est sélectionné, on ajoute le paramètre correspondant à la requête
+                if (idProfilSelectionne != 0)
+                {
+                    typeProfil.Add("@profilId", idProfilSelectionne);
+                }
+
+                //Tentative d'exécution  de la requête SQL
                 try
                 {
-                    List<Object[]> records = access.Manager.ReqSelect(req);
+                    //Exécution requête via la ReqSelect et récupération des résultats dans une liste d'objets
+                    List<Object[]> records = access.Manager.ReqSelect(req, typeProfil);
+                    //Vérification que la requête retourne un résultat
                     if (records != null)
                     {
+                        //boucle sur chaque enregistrement retourné par la bdd tant qu'il y a un résultat
                         foreach (Object[] record in records)
                         {
+                            //Création d'un objet profil à partir des informations récupérées
                             Profil profil = new Profil((int)record[5], (string)record[6]);
+                            //Création d'un objet developpeur à partir des informations récupérées
                             Developpeur developpeur = new Developpeur((int)record[0], (string)record[1], (string)record[2], (string)record[3], (string)record[4], "",profil);
+                            //Ajout du développeur à la liste lesDeveloppeurs
                             lesDeveloppeurs.Add(developpeur);
                         }
                     }
                 }
+                //Gestion des erreurs
                 catch (Exception e)
                 {
                     Console.WriteLine(e.Message);
                     Environment.Exit(0);
                 }
             }
+            //Retourne la liste des développeurs récupérés
             return lesDeveloppeurs;
         }
 
