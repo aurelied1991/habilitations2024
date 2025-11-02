@@ -38,7 +38,7 @@ namespace habilitations2024.bddmanager
         /// <summary>
         /// Méthode qui exécute une requête autre que select
         /// </summary>
-        /// <param name="StringQuery"> Requête SQL </param>
+        /// <param name="stringQuery"> Requête SQL </param>
         /// <param name="parameters"> Dictionnaire avec les évenuels paramètres de la requête</param>
         public void ReqUpdate(string stringQuery, Dictionary<string, object> parameters = null)
         {

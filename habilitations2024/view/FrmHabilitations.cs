@@ -48,7 +48,7 @@ namespace Habilitations2024.view
         private int idProfilSelectionne;
 
         /// <summary>
-        /// COnstruction des composants graphiques et initialisation
+        /// Construction des composants graphiques et initialisation
         /// </summary>
         public FrmHabilitations()
         {
@@ -303,6 +303,11 @@ namespace Habilitations2024.view
             List<Developpeur> lesDeveloppeurs = controller.GetLesDeveloppeurs(idProfilSelectionne);
             //Mise à jour du bdgDeveloppeur avec la nouvelle liste de développeurs
             bdgDeveloppeurs.DataSource = lesDeveloppeurs;
+        }
+
+        private void FrmHabilitations_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

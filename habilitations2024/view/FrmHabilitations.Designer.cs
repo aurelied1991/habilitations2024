@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.gboLesDeveloppeurs = new System.Windows.Forms.GroupBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.CboSelectionProfil = new System.Windows.Forms.ComboBox();
             this.btnChangerPwd = new System.Windows.Forms.Button();
             this.btnSupprimer = new System.Windows.Forms.Button();
@@ -54,7 +55,6 @@
             this.txtPwd = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
             this.gboLesDeveloppeurs.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvLesDeveloppeurs)).BeginInit();
             this.gboAjoutDeveloppeur.SuspendLayout();
@@ -75,6 +75,15 @@
             this.gboLesDeveloppeurs.TabIndex = 0;
             this.gboLesDeveloppeurs.TabStop = false;
             this.gboLesDeveloppeurs.Text = "Les développeurs";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(427, 235);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(43, 16);
+            this.label8.TabIndex = 4;
+            this.label8.Text = "Profil :";
             // 
             // CboSelectionProfil
             // 
@@ -320,15 +329,6 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Pwd";
             // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(427, 235);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(43, 16);
-            this.label8.TabIndex = 4;
-            this.label8.Text = "Profil :";
-            // 
             // FrmHabilitations
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -339,6 +339,7 @@
             this.Controls.Add(this.gboLesDeveloppeurs);
             this.Name = "FrmHabilitations";
             this.Text = "Habilitations2024";
+            this.Load += new System.EventHandler(this.FrmHabilitations_Load);
             this.gboLesDeveloppeurs.ResumeLayout(false);
             this.gboLesDeveloppeurs.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvLesDeveloppeurs)).EndInit();

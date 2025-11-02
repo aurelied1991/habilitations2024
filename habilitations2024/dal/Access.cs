@@ -31,7 +31,7 @@ namespace habilitations2024.dal
             }
             catch(Exception)
             {
-                Environment.Exit(0);
+                //Environment.Exit(0);
             }
         }
 
