@@ -212,7 +212,7 @@ namespace Habilitations2024.view
         }
 
         /// <summary>
-        /// Bouton pour enregistrer le nouveau mot de passe
+        /// Bouton pour enregistrer le nouveau pwd
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
