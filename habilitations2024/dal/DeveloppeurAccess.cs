@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using habilitations2024.model;
+using Serilog;
 
 namespace habilitations2024.dal
 {
@@ -16,7 +17,10 @@ namespace habilitations2024.dal
     {
         //Instance unique de l'accès aux données
         private readonly Access access = null;
-        //Constructeur pour créer l'accès aux données
+
+        /// <summary>
+        /// Constructeur pour créer l'accès aux données
+        /// </summary>
         public DeveloppeurAccess()
         {
             access = Access.GetInstance();
@@ -25,30 +29,40 @@ namespace habilitations2024.dal
         /// <summary>
         /// Construit une requête pour chercher un développeur correspondant aux critères (meme nom, prenom, pwd et de profil admin) pour se connecter
         /// </summary>
-        /// <param name="admin">Recoit en paramètre un objet de type admin</param>
+        /// <param name="admin">Recoit en paramètre un objet de type Admin contenant nom, prenom, mot de passe </param>
         /// <returns>Vrai si l'utilisateur a le profil admin</returns>
         public Boolean ControleAuthentification(Admin admin)
         {
-            if(access.Manager != null)
+            //Vérification que la connexion à la base de données est bien établie
+            if (access.Manager != null)
             {
+                //Construction de la requête SQL
                 string req = "SELECT * FROM developpeur d JOIN profil p ON d.idprofil=p.idprofil ";
                 req += "WHERE d.nom=@nom AND d.prenom=@prenom AND d.pwd AND p.nom='admin';";
+                //Création d'un dictionnaire pour stocker les paramètres de la requête SQL pour éviter injections SQL
                 Dictionary<string,object> parameters = new Dictionary<string,object>();
                 parameters.Add("@nom", admin.Nom);
                 parameters.Add("@prenom", admin.Prenom);
                 parameters.Add("@pwd", admin.Pwd);
 
                 try
-                {
+                { 
+                    //Tentative d'exécution  de la requête SQL et retourne une liste de tableaux d'objets
                     List<Object[]> records = access.Manager.ReqSelect(req, parameters);
-                    if(records != null)
+                    //Vérification que la requête retourne un résultat
+                    if (records != null)
                     {
-                        return(records.Count > 0);
+                        //Si la liste contient au moins un enregistrement, c'est que l'authentification est correcte et que l'utilisateur est admin
+                        return (records.Count > 0);
                     }
                 }
                 catch(Exception e)
                 {
+                    //En cas d'erreur pendant la rrquête, affiche message d'erreur dans la console
                     Console.WriteLine(e.Message);
+                    //Log l'erreur avec Serilog, niveau "Error", on note la requête utilisé et le message d'erreur
+                    Log.Error("DeveloppeurAccess.ControleAuthentification catch req={0} erreur={1}", req, e.Message);
+                    //Termine le programme
                     Environment.Exit(0);
                 }
             }
@@ -96,9 +110,12 @@ namespace habilitations2024.dal
                     //Vérification que la requête retourne un résultat
                     if (records != null)
                     {
+                        Log.Debug("DeveloppeurAccess.GetLesDeveloppeurs nombre enregistrements={0}", records.Count);
                         //boucle sur chaque enregistrement retourné par la bdd tant qu'il y a un résultat
                         foreach (Object[] record in records)
                         {
+                            Log.Debug("DeveloppeurAccess.GetLesDeveloppeurs Profi id={0} nom={1}", record[5], record[6]);
+                            Log.Debug("DeveloppeurAccess.GetLesDeveloppeurs Developpeur : id={0} nom={1} prenom={2} tel={3} mail={4}", record[0], record[1], record[2], record[3], record[4]);
                             //Création d'un objet profil à partir des informations récupérées
                             Profil profil = new Profil((int)record[5], (string)record[6]);
                             //Création d'un objet developpeur à partir des informations récupérées
@@ -111,6 +128,7 @@ namespace habilitations2024.dal
                 //Gestion des erreurs
                 catch (Exception e)
                 {
+                    Log.Error("DeveloppeurAccess.GetLesDeveloppeurs catch req={0} erreur={1}", req, e.Message);
                     Console.WriteLine(e.Message);
                     Environment.Exit(0);
                 }
@@ -137,6 +155,7 @@ namespace habilitations2024.dal
                 catch (Exception e)
                 {
                     Console.WriteLine(e.Message);
+                    Log.Error("DeveloppeurAccess.SuppDeveloppeur catch req={0} erreur={1}", req, e.Message);
                     Environment.Exit(0);
                 }
             }
@@ -166,9 +185,9 @@ namespace habilitations2024.dal
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show("Une erreur est survenue : " + e.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    //Console.WriteLine(e.Message);
-                    //Environment.Exit(0);
+                    Console.WriteLine(e.Message);
+                    Log.Error("DeveloppeurAccess.AjoutDeveloppeur catch req={0} erreur={1}", req, e.Message);
+                    Environment.Exit(0);
                 }
             }
 
@@ -198,6 +217,7 @@ namespace habilitations2024.dal
                 catch (Exception e)
                 {
                     Console.WriteLine(e.Message);
+                    Log.Error("DeveloppeurAccess.ModifDeveloppeur catch req={0} erreur={1}", req, e.Message);
                     Environment.Exit(0);
                 }
             }
@@ -224,6 +244,7 @@ namespace habilitations2024.dal
                 catch (Exception e)
                 {
                     Console.WriteLine(e.Message);
+                    Log.Error("DeveloppeurAccess.ModifPwd catch req={0} erreur={1}", req, e.Message);
                     Environment.Exit(0);
                 }
             }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using habilitations2024.model;
+using Serilog;
 
 namespace habilitations2024.dal
 {
@@ -43,9 +44,12 @@ namespace habilitations2024.dal
                     //Vérifier que la liste n'est pas null puis boucler sur les objets de cette liste
                     if(records != null)
                     {
+                        //Log pour afficher le nombre d'enregistrements récupérés
+                        Log.Debug("ProfilAccess.GetLesProfils nombre enregistrements={0}", records.Count);
                         //A chaque tour de boucle, un objet de type Profil doit être crée en mettant les paramètres du constructeurs, les 2 cases du tableau récupéré (contenant idprofil et nom) apres les avoir correctement transtypés (car les cases sont de type object)
-                        foreach(Object[] record in records)
+                        foreach (Object[] record in records)
                         {
+                            Log.Debug("ProfilAccess.GetLesProfils record idprofil={0} nom={1}", record[0], record[1]);
                             Profil profil = new Profil((int)record[0], (string)record[1]);
                             //Une fois l'objet profil crée, il suffit de l'ajouter à la liste des profils 
                             lesProfils.Add(profil);
@@ -56,6 +60,7 @@ namespace habilitations2024.dal
                 {
                     //affichage d'un message + arrêt de l'application en car d'erreur
                     Console.WriteLine(e.Message);
+                    Log.Error("ProfilAccess.GetLesProfils catch req={0} erreur={1}", req, e.Message);
                     Environment.Exit(0);
                 }
             }
