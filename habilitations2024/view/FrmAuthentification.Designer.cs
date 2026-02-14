@@ -121,6 +121,7 @@
             this.Controls.Add(this.label1);
             this.Name = "FrmAuthentification";
             this.Text = "FrmAuthentification";
+            this.Load += new System.EventHandler(this.FrmAuthentification_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

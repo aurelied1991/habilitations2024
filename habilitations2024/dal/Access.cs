@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Remoting.Messaging;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using habilitations2024.bddmanager;
 using Serilog;
+using System.Configuration;
 
 namespace habilitations2024.dal
 {
@@ -15,8 +10,8 @@ namespace habilitations2024.dal
     /// </summary>
     public class Access
     {
-        //Chaîne de connexion à la bdd
-        private static readonly string connectionString = "server=localhost; user id=habilitations; password=motdepasseuser; database=habilitations;";
+        //Nom de connexion à la bdd
+        private static readonly string connectionName = "habilitations2024.Properties.Settings.habilitationsConnectionString";
         //Propriété qui contiendra l'unique instance de la classe
         private static Access instance = null;
         //Getter sur l'objet d'accès aux données
@@ -29,6 +24,7 @@ namespace habilitations2024.dal
         /// </summary>
         private Access()
         {
+            string connectionString = null;
             try
             {
                 //Configuration du Logger Serilog
@@ -37,6 +33,7 @@ namespace habilitations2024.dal
                     .WriteTo.Console() //Afficher les logs dans la console
                     .WriteTo.File("logs/log.txt") //Enregistrer les logs dans un fichier texte
                     .CreateLogger(); //Créer le logger et assignation à Log.Logger (logger global)
+                connectionString = GetConnectionStringByName(connectionName);
                 //Tentative de connexion à la bdd
                 Manager = BddManager.GetInstance(connectionString);
             }
@@ -47,6 +44,20 @@ namespace habilitations2024.dal
                 //Arrêt de l'application en cas d'erreur fatale de connexion à la bdd car connexion indispensable
                 Environment.Exit(0);
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        static string GetConnectionStringByName(string name)
+        {
+            string returnValue = null;
+            ConnectionStringSettings settings = ConfigurationManager.ConnectionStrings[name];
+            if (settings != null)
+                returnValue = settings.ConnectionString;
+            return returnValue;
         }
 
         /// <summary>

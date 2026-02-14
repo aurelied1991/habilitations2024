@@ -68,19 +68,28 @@ namespace habilitations2024.controller
         /// <returns></returns>
         public bool PwdFort(string pwd)
         {
-            if (pwd.Length < 8 && pwd.Length > 30)
+            //initialisation d'une variable de type TimeSpan pour définir un délai d'attente raisonnable
+            TimeSpan timeout = TimeSpan.FromMilliseconds(100);
+            try
+            {
+                if (pwd.Length < 8 && pwd.Length > 30)
+                    return false;
+                if (!Regex.IsMatch(pwd, @"[a-z]", RegexOptions.None, timeout))
+                    return false;
+                if (!Regex.IsMatch(pwd, @"[A-Z]", RegexOptions.None, timeout))
+                    return false;
+                if (!Regex.IsMatch(pwd, @"[0-9]", RegexOptions.None, timeout))
+                    return false;
+                if (!Regex.IsMatch(pwd, @"\W", RegexOptions.None, timeout))
+                    return false;
+                if (Regex.IsMatch(pwd, @"\s", RegexOptions.None, timeout))
+                    return false;
+                return true;
+            }
+            catch (RegexMatchTimeoutException)
+            {
                 return false;
-            if (!Regex.Match(pwd, @"[a-z]").Success)
-                return false;
-            if (!Regex.Match(pwd, @"[A-Z]").Success)
-                return false;
-            if (!Regex.Match(pwd, @"[0-9]").Success)
-                return false;
-            if (!Regex.Match(pwd, @"\W").Success)
-                return false;
-            if (Regex.Match(pwd, @"\s").Success)
-                return false;
-            return true;
+            }
         }
     }
 }

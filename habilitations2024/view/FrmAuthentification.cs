@@ -64,5 +64,10 @@ namespace habilitations2024.view
                 }
             }
         }
+
+        private void FrmAuthentification_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

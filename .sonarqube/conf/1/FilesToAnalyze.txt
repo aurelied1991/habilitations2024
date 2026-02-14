@@ -1,0 +1,4 @@
+﻿C:\Users\aurel\Desktop\AppliC#1SLAM\habilitations2024\habilitations2024Tests\dal\DeveloppeurAccessTests.cs
+C:\Users\aurel\Desktop\AppliC#1SLAM\habilitations2024\habilitations2024Tests\Properties\AssemblyInfo.cs
+C:\Users\aurel\Desktop\AppliC#1SLAM\habilitations2024\habilitations2024Tests\app.config
+C:\Users\aurel\Desktop\AppliC#1SLAM\habilitations2024\habilitations2024Tests\packages.config

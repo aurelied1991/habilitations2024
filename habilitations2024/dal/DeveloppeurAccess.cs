@@ -40,10 +40,11 @@ namespace habilitations2024.dal
                 string req = "SELECT * FROM developpeur d JOIN profil p ON d.idprofil=p.idprofil ";
                 req += "WHERE d.nom=@nom AND d.prenom=@prenom AND d.pwd AND p.nom='admin';";
                 //Création d'un dictionnaire pour stocker les paramètres de la requête SQL pour éviter injections SQL
-                Dictionary<string,object> parameters = new Dictionary<string,object>();
-                parameters.Add("@nom", admin.Nom);
-                parameters.Add("@prenom", admin.Prenom);
-                parameters.Add("@pwd", admin.Pwd);
+                Dictionary<string,object> parameters = new Dictionary<string, object> {
+                    { "@nom", admin.Nom },
+                    { "@prenom", admin.Prenom },
+                    { "@pwd", admin.Pwd }
+                };
 
                 try
                 { 
@@ -146,8 +147,10 @@ namespace habilitations2024.dal
             if (access.Manager != null)
             {
                 string req = "delete from developpeur where iddeveloppeur = @iddeveloppeur;";
-                Dictionary<string, object> parameters = new Dictionary<string, object>();
-                parameters.Add("@iddeveloppeur", developpeur.Iddeveloppeur);
+                Dictionary<string, object> parameters = new Dictionary<string, object>()
+                {
+                    { "@iddeveloppeur", developpeur.Iddeveloppeur }
+                };
                 try
                 {
                     access.Manager.ReqUpdate(req, parameters);
@@ -171,14 +174,14 @@ namespace habilitations2024.dal
             {
                 string req = "INSERT INTO developpeur(nom, prenom, tel, mail, pwd, idprofil)";
                 req += " VALUES (@nom, @prenom, @tel, @mail, SHA2(@pwd, 256), @idprofil);";
-                Dictionary<string, object> parameters = new Dictionary<string, object>();
-                parameters.Add("@nom", developpeur.Nom);
-                parameters.Add("@prenom", developpeur.Prenom);
-                parameters.Add("@tel", developpeur.Tel);
-                parameters.Add("@mail", developpeur.Mail);
-                parameters.Add("@pwd", developpeur.Pwd);
-                parameters.Add("@idprofil", developpeur.Profil.Idprofil);
-
+                Dictionary<string, object> parameters = new Dictionary<string, object> {
+                    { "@nom", developpeur.Nom },
+                    { "@prenom", developpeur.Prenom },
+                    { "@tel", developpeur.Tel },
+                    { "@mail", developpeur.Mail },
+                    { "@pwd", developpeur.Pwd },
+                    { "@idprofil", developpeur.Profil.Idprofil }
+                };
                 try
                 {
                     access.Manager.ReqUpdate(req,parameters);
@@ -202,14 +205,14 @@ namespace habilitations2024.dal
             if(access.Manager != null)
             {
                 string req = "UPDATE developpeur SET nom = @nom, prenom = @prenom, tel = @tel, mail = @mail, idprofil = @idprofil WHERE iddeveloppeur = @iddeveloppeur;";
-                Dictionary<string, object> parameters = new Dictionary<string, object>();
-                parameters.Add("@iddeveloppeur", developpeur.Iddeveloppeur);
-                parameters.Add("@nom", developpeur.Nom);
-                parameters.Add("@prenom", developpeur.Prenom);
-                parameters.Add("@tel", developpeur.Tel);
-                parameters.Add("@mail", developpeur.Mail);
-                parameters.Add("@idprofil", developpeur.Profil.Idprofil);
-
+                Dictionary<string, object> parameters = new Dictionary<string, object> {
+                    { "@iddeveloppeur", developpeur.Iddeveloppeur },
+                    { "@nom", developpeur.Nom},
+                    { "@prenom", developpeur.Prenom},
+                    { "@tel", developpeur.Tel},
+                    { "@mail", developpeur.Mail},
+                    { "@idprofil", developpeur.Profil.Idprofil}
+                };
                 try
                 {
                     access.Manager.ReqUpdate(req, parameters);
@@ -233,9 +236,10 @@ namespace habilitations2024.dal
             {
                 string req = "update developpeur set pwd = SHA2(@pwd,256) ";
                 req += "where iddeveloppeur = @iddeveloppeur;";
-                Dictionary<string, object> parameters = new Dictionary<string, object>();
-                parameters.Add("@idDeveloppeur", developpeur.Iddeveloppeur);
-                parameters.Add("@pwd", developpeur.Pwd);
+                Dictionary<string, object> parameters = new Dictionary<string, object> {
+                    { "@idDeveloppeur", developpeur.Iddeveloppeur },
+                    { "@pwd", developpeur.Pwd}
+                };
 
                 try
                 {
