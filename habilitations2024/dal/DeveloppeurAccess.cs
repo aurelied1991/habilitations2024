@@ -82,9 +82,10 @@ namespace habilitations2024.dal
             if (access.Manager != null)
             {
                 //Construction de la requête SQL
-                string req = "SELECT d.iddeveloppeur AS iddeveloppeur, d.nom AS nom, d.prenom AS prenom, d.tel AS tel, d.mail AS mail, p.idprofil AS idprofil, p.nom AS profil ";
-                req += "FROM developpeur d JOIN profil p ON (d.idprofil = p.idprofil) ";
-                
+                string req = "SELECT d.iddeveloppeur AS iddeveloppeur, d.nom AS nom, d.prenom AS prenom, " +
+                "d.tel AS tel, d.mail AS mail, p.idprofil AS idprofil, p.nom AS profil " +
+                "FROM developpeur d JOIN profil p ON (d.idprofil = p.idprofil) ";
+
                 //Si un profil est sélectionné, on ajoute une condition pour récupérer seulement les développeurs correspondant au profil
                 //Si aucun profil n'est sélectionné, tous les développeurs seront affichés
                 if (idProfilSelectionne!=0)
