@@ -55,6 +55,10 @@
             this.txtPwd = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.txtNomProfil = new System.Windows.Forms.TextBox();
+            this.lblAjoutProfil = new System.Windows.Forms.Label();
+            this.btnAjoutProfil = new System.Windows.Forms.Button();
+            this.btnSuppProfil = new System.Windows.Forms.Button();
             this.gboLesDeveloppeurs.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvLesDeveloppeurs)).BeginInit();
             this.gboAjoutDeveloppeur.SuspendLayout();
@@ -63,6 +67,10 @@
             // 
             // gboLesDeveloppeurs
             // 
+            this.gboLesDeveloppeurs.Controls.Add(this.btnSuppProfil);
+            this.gboLesDeveloppeurs.Controls.Add(this.btnAjoutProfil);
+            this.gboLesDeveloppeurs.Controls.Add(this.lblAjoutProfil);
+            this.gboLesDeveloppeurs.Controls.Add(this.txtNomProfil);
             this.gboLesDeveloppeurs.Controls.Add(this.label8);
             this.gboLesDeveloppeurs.Controls.Add(this.CboSelectionProfil);
             this.gboLesDeveloppeurs.Controls.Add(this.btnChangerPwd);
@@ -71,7 +79,7 @@
             this.gboLesDeveloppeurs.Controls.Add(this.dgvLesDeveloppeurs);
             this.gboLesDeveloppeurs.Location = new System.Drawing.Point(22, 23);
             this.gboLesDeveloppeurs.Name = "gboLesDeveloppeurs";
-            this.gboLesDeveloppeurs.Size = new System.Drawing.Size(650, 257);
+            this.gboLesDeveloppeurs.Size = new System.Drawing.Size(650, 341);
             this.gboLesDeveloppeurs.TabIndex = 0;
             this.gboLesDeveloppeurs.TabStop = false;
             this.gboLesDeveloppeurs.Text = "Les développeurs";
@@ -79,7 +87,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(427, 235);
+            this.label8.Location = new System.Drawing.Point(311, 231);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(43, 16);
             this.label8.TabIndex = 4;
@@ -88,7 +96,7 @@
             // CboSelectionProfil
             // 
             this.CboSelectionProfil.FormattingEnabled = true;
-            this.CboSelectionProfil.Location = new System.Drawing.Point(488, 228);
+            this.CboSelectionProfil.Location = new System.Drawing.Point(360, 225);
             this.CboSelectionProfil.Name = "CboSelectionProfil";
             this.CboSelectionProfil.Size = new System.Drawing.Size(121, 24);
             this.CboSelectionProfil.TabIndex = 3;
@@ -96,7 +104,7 @@
             // 
             // btnChangerPwd
             // 
-            this.btnChangerPwd.Location = new System.Drawing.Point(293, 225);
+            this.btnChangerPwd.Location = new System.Drawing.Point(13, 271);
             this.btnChangerPwd.Name = "btnChangerPwd";
             this.btnChangerPwd.Size = new System.Drawing.Size(95, 26);
             this.btnChangerPwd.TabIndex = 3;
@@ -152,7 +160,7 @@
             this.gboAjoutDeveloppeur.Controls.Add(this.label3);
             this.gboAjoutDeveloppeur.Controls.Add(this.label5);
             this.gboAjoutDeveloppeur.Controls.Add(this.label4);
-            this.gboAjoutDeveloppeur.Location = new System.Drawing.Point(22, 286);
+            this.gboAjoutDeveloppeur.Location = new System.Drawing.Point(22, 391);
             this.gboAjoutDeveloppeur.Name = "gboAjoutDeveloppeur";
             this.gboAjoutDeveloppeur.Size = new System.Drawing.Size(650, 150);
             this.gboAjoutDeveloppeur.TabIndex = 1;
@@ -268,7 +276,7 @@
             this.gboModifPwd.Controls.Add(this.txtPwd);
             this.gboModifPwd.Controls.Add(this.label2);
             this.gboModifPwd.Controls.Add(this.label1);
-            this.gboModifPwd.Location = new System.Drawing.Point(22, 442);
+            this.gboModifPwd.Location = new System.Drawing.Point(22, 557);
             this.gboModifPwd.Name = "gboModifPwd";
             this.gboModifPwd.Size = new System.Drawing.Size(650, 100);
             this.gboModifPwd.TabIndex = 2;
@@ -329,11 +337,47 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Pwd";
             // 
+            // txtNomProfil
+            // 
+            this.txtNomProfil.Location = new System.Drawing.Point(497, 271);
+            this.txtNomProfil.Name = "txtNomProfil";
+            this.txtNomProfil.Size = new System.Drawing.Size(136, 22);
+            this.txtNomProfil.TabIndex = 5;
+            // 
+            // lblAjoutProfil
+            // 
+            this.lblAjoutProfil.AutoSize = true;
+            this.lblAjoutProfil.Location = new System.Drawing.Point(311, 276);
+            this.lblAjoutProfil.Name = "lblAjoutProfil";
+            this.lblAjoutProfil.Size = new System.Drawing.Size(159, 16);
+            this.lblAjoutProfil.TabIndex = 6;
+            this.lblAjoutProfil.Text = "Ajouter un nouveau profil :";
+            // 
+            // btnAjoutProfil
+            // 
+            this.btnAjoutProfil.Location = new System.Drawing.Point(534, 312);
+            this.btnAjoutProfil.Name = "btnAjoutProfil";
+            this.btnAjoutProfil.Size = new System.Drawing.Size(99, 23);
+            this.btnAjoutProfil.TabIndex = 7;
+            this.btnAjoutProfil.Text = "Ajouter";
+            this.btnAjoutProfil.UseVisualStyleBackColor = true;
+            this.btnAjoutProfil.Click += new System.EventHandler(this.btnAjoutProfil_Click);
+            // 
+            // btnSuppProfil
+            // 
+            this.btnSuppProfil.Location = new System.Drawing.Point(497, 226);
+            this.btnSuppProfil.Name = "btnSuppProfil";
+            this.btnSuppProfil.Size = new System.Drawing.Size(136, 23);
+            this.btnSuppProfil.TabIndex = 8;
+            this.btnSuppProfil.Text = "Supprimer le profil";
+            this.btnSuppProfil.UseVisualStyleBackColor = true;
+            this.btnSuppProfil.Click += new System.EventHandler(this.btnSuppProfil_Click);
+            // 
             // FrmHabilitations
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(695, 541);
+            this.ClientSize = new System.Drawing.Size(695, 669);
             this.Controls.Add(this.gboModifPwd);
             this.Controls.Add(this.gboAjoutDeveloppeur);
             this.Controls.Add(this.gboLesDeveloppeurs);
@@ -380,6 +424,10 @@
         private System.Windows.Forms.Button btnModifier;
         private System.Windows.Forms.ComboBox CboSelectionProfil;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button btnAjoutProfil;
+        private System.Windows.Forms.Label lblAjoutProfil;
+        private System.Windows.Forms.TextBox txtNomProfil;
+        private System.Windows.Forms.Button btnSuppProfil;
     }
 }
 

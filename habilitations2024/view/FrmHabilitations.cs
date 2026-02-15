@@ -44,6 +44,11 @@ namespace Habilitations2024.view
         /// </summary>
         private Boolean demandeModifDeveloppeur = false;
 
+        /// <summary>
+        /// profil particulier "admin" qui ne peut pas être supprimé
+        /// </summary>
+        private const string ADMIN = "admin";
+
 
         private int idProfilSelectionne;
 
@@ -308,6 +313,56 @@ namespace Habilitations2024.view
         private void FrmHabilitations_Load(object sender, EventArgs e)
         {
 
+        }
+
+        /// <summary>
+        /// Bouton pour ajouter un profil sauf s'il existe déjà
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnAjoutProfil_Click(object sender, EventArgs e)
+        {
+            string nom = txtNomProfil.Text.ToString().ToLower();
+            if (string.IsNullOrEmpty(nom))
+            {
+                MessageBox.Show("Le nom du profil ne peut pas être vide", "Attention");
+            }
+            else if (cboProfil.Items.Cast<Profil>().Any(profil => profil.Nom == nom))
+            {
+                MessageBox.Show("Un profil avec ce nom existe déjà", "Attention");
+            }
+            else
+            {
+                controller.AddProfil(new Profil(0, nom));
+                txtNomProfil.Text = "";
+                RemplirListeProfils();
+            }
+        }
+
+        /// <summary>
+        /// Bouton pour supprimer un profil à condition qu'il ne soit pas attribué et que ce ne soit pas le profil "admin"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnSuppProfil_Click(object sender, EventArgs e)
+        {
+            Profil profil = (Profil)CboSelectionProfil.SelectedItem;
+            if(profil.Nom.Equals(ADMIN))
+            {
+                MessageBox.Show("Le profil admin ne peut pas être supprimé", "Attention");
+            }
+            else if (((List<Developpeur>)bdgDeveloppeurs.DataSource).Exists(x => x.Profil.Idprofil == profil.Idprofil))
+            {
+                MessageBox.Show("Ce profil est attribué à au moins un développeur et ne peut pas être supprimé", "Attention");
+            }
+            else
+            {
+                if (MessageBox.Show("Voulez vous vraiment supprimer le profil " + profil.Nom + " ? ", "Confirmation", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    controller.DelProfil(profil);
+                    RemplirListeProfils();
+                }
+            }
         }
     }
 }

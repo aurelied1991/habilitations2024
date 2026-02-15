@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using habilitations2024.model;
 using Serilog;
 
@@ -65,6 +66,57 @@ namespace habilitations2024.dal
                 }
             }
             return lesProfils;
+        }
+
+        /// <summary>
+        /// Ajoute un profil à la bdd 
+        /// </summary>
+        /// <param name="profil"></param>
+        public void AddProfil(Profil profil)
+        {
+            if (access.Manager != null)
+            {
+                string req = "INSERT INTO profil (nom) VALUES (@nom);";
+                Dictionary<string, object> parameters = new Dictionary<string, object>
+                {
+                    {"@nom", profil.Nom  }
+                };
+
+                try
+                {
+                    access.Manager.ReqUpdate(req, parameters);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    Log.Error("ProfilAccess.AddProfil catch req={0} erreur={1}", req, e.Message);
+                    Environment.Exit(0);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Supprime un profil de la bdd
+        /// </summary>
+        /// <param name="profil"></param>
+        public void DelProfil(Profil profil)
+        {
+            if (access.Manager != null)
+            {
+                string req = "DELETE FROM profil WHERE idprofil = @idprofil;";
+                Dictionary<string, object> parameters = new Dictionary<string, object>
+                {
+                    {"@idprofil", profil.Idprofil }
+                };
+                try
+                {
+                    access.Manager.ReqUpdate(req, parameters);
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message, "Erreur suppression profil");
+                }
+            }
         }
     }
 }

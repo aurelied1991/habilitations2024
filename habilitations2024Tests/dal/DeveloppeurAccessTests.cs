@@ -33,9 +33,9 @@ namespace habilitations2024.dal.Tests
         [TestMethod()]
         public void ControleAuthentificationTest()
         {
-            string nom = "Nolan";
-            string prenom = "Rooney";
-            string pwd = "Nolan";
+            string nom = "Justice";
+            string prenom = "Hamilton";
+            string pwd = "Justice";
 
             Assert.IsTrue(developpeurAccess.ControleAuthentification(new Admin(nom, prenom, pwd)), "Devrait réussir : données utilisateur correctes");
 

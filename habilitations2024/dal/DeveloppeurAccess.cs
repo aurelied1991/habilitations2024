@@ -38,7 +38,7 @@ namespace habilitations2024.dal
             {
                 //Construction de la requête SQL
                 string req = "SELECT * FROM developpeur d JOIN profil p ON d.idprofil=p.idprofil ";
-                req += "WHERE d.nom=@nom AND d.prenom=@prenom AND d.pwd AND p.nom='admin';";
+                req += "WHERE d.nom=@nom AND d.prenom=@prenom AND pwd=SHA2(@pwd, 256) AND p.nom='admin';";
                 //Création d'un dictionnaire pour stocker les paramètres de la requête SQL pour éviter injections SQL
                 Dictionary<string,object> parameters = new Dictionary<string, object> {
                     { "@nom", admin.Nom },
